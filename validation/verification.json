@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "date": "2026-11-03",
+  "cpu_unit_tests": 25,
+  "optimizer_updates": 0,
+  "gpu_used": false,
+  "environment": {
+    "python": "3.10.12",
+    "torch_runtime": "2.5.1+cu124",
+    "numpy": "2.2.6",
+    "PyYAML": "6.0.2",
+    "platform": "Linux"
+  },
+  "source_py_sha256": {
+    "src/stt_rca/__init__.py": "2bcedd923f36cf9dcb8c3f47e28cd0d6be5d4b6648516848e4fd02cd9cb90653",
+    "src/stt_rca/cache_worker.py": "6c6727103a11b575657adaedbceeabcd5fba0d4f638a51dec5281cc00205fa21",
+    "src/stt_rca/cli.py": "6df8ff7c3e44077399cb3b7c52a81dd772c33300f7e31fe8eb396e350a627ba4",
+    "src/stt_rca/config.py": "e0a3ab8b88bb97fc3520e2dad7ea57c726accfcf8d5f7efc293c192d8d4bf29e",
+    "src/stt_rca/data.py": "61928606dbf317b2014e74aa62df7f596dab70deebbeeade7e2d8642bf8ab702",
+    "src/stt_rca/evaluation.py": "8412ad8371f88b9cb0636412b146eb208997a63d64857bcf168e88d2bf5b3e63",
+    "src/stt_rca/export.py": "98232e4d004cb15ad81346de53454c5bf4e31bc59558e054f08cf4931b0a7d7d",
+    "src/stt_rca/metrics.py": "abb9aaf18333d68cd40ff805cab929606b9d42819a66da68828b251feb58e490",
+    "src/stt_rca/model.py": "8e6d79519880e5ab8ec00faf30b27961c04613187b193065c4c323499891b1bb",
+    "src/stt_rca/objective.py": "d1be65f28e8a30ce6d6702c2288c18941d9b7d6a466d5478ac6c0224ab46a1dd",
+    "src/stt_rca/prepare.py": "71a8a55ac5ecd0fdcc3f7a962efcfec4785a0526898c069cbc4585f9455ad43d",
+    "src/stt_rca/records.py": "cd083c848947d3093d3e0add629b047890c5122aea06ed63d30778d5aadba461",
+    "src/stt_rca/training.py": "d796ddfc16b6fa2233d14bb1076bed0ccff54ba2a12ed36c5148508b02a284bb",
+    "tests/check_real_data.py": "41f2952510f4df761284fa4903bdb392a9de8843b50065c7449c75e59a8e08c0",
+    "tests/test_config.py": "2e838c5b909aa869e4f2765501b69dc57e91f4b2524560fa42525e3f14147e55",
+    "tests/test_metrics.py": "f5fe33939741a4fbec09924aaf7126bcded42e5533bedaaaba7e911e4dba134a",
+    "tests/test_model.py": "7c6af80be9d6c4b73c3f153ed5a74da4dd447ebe19346b7c9466a40245283ae7",
+    "tests/test_training.py": "41010761d5f3db7e3b51d86b238f6328e9640b221c6ae04dd89d8dd7d10ce442"
+  },
+  "real_corpus_integration": {
+    "status": "passed",
+    "independent_pairs": 96,
+    "validated_lineage_rows": 96,
+    "cache_boundary_rows_checked": [
+      0,
+      66,
+      67,
+      95
+    ],
+    "blocks": 2,
+    "cache_worker": {
+      "completed_requests": 2,
+      "last_end": 96,
+      "last_start": 67,
+      "peak_worker_rss_bytes": 237375488,
+      "status": "passed"
+    },
+    "actual_targets_and_observation_stats_match": true,
+    "optimizer_updates": 0,
+    "gpu_used": false
+  },
+  "wheel_build": {
+    "status": "passed",
+    "filename": "stt_rca-0.1.0-py3-none-any.whl",
+    "sha256": "5af5faaedc151f8fdc2ef30b3aaea81cf6c6a254e38624f69745552923dad8f5"
+  },
+  "not_executed": [
+    "model_training",
+    "GPU_forward_backward",
+    "NCCL_multi_GPU",
+    "learning_performance_evaluation"
+  ]
+}

@@ -1,0 +1,1 @@
+{"status": "passed", "independent_pairs": 96, "validated_lineage_rows": 96, "cache_boundary_rows_checked": [0, 66, 67, 95], "blocks": 2, "cache_worker": {"completed_requests": 2, "last_end": 96, "last_start": 67, "peak_worker_rss_bytes": 237375488, "status": "passed"}, "actual_targets_and_observation_stats_match": true, "optimizer_updates": 0, "gpu_used": false}

@@ -1,0 +1,13 @@
+# Full model, short diagnostic training. Not a prefix of the 20k main schedule.
+data:
+  pair_manifest_size: 192000
+  manifest_independent_of_main: true
+training:
+  max_updates: 2000
+  validate_every: 200
+  save_every: 500
+  auto_launch: false
+optimizer:
+  warmup_updates: 200
+loss:
+  auxiliary_ramp_updates: 200

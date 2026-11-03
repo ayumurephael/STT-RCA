@@ -1,0 +1,42 @@
+schema_version: stt-evaluation-1
+generator_profile: normal_first_canonical_same_declared_prior
+evaluation_seed: 93407
+primary:
+  role: independent_own_event
+  source_systems: heldout_system_ids_only
+  validation_systems_initial: 100
+  test_systems_initial: 200
+  channels: [8, 12, 16, 20]
+  equal_system_count_per_C: true
+  worlds_per_system_per_track: 4
+  episodes_per_world_per_track: 16
+  mode_counts_per_world: {process: 8, readout: 8}
+  root_sampling: uniform_over_all_candidate_channels
+  waveform_sampling: frozen_generator_prior_conditioned_on_track_cell
+  length_sampling: frozen_training_pool_pT_draw_once_per_system
+  split_tracks:
+    system_ood: train_cells
+    validation_composition_ood: validation_cells
+    test_composition_ood: test_cells
+  duplicate_policy: unique_split_track_episode_id_no_role_multiplicity
+  event_weights: equal_within_system
+  system_weights: equal_within_track
+  validation_track_weights: [0.5, 0.5]
+  retain_zero_invisible_and_ambiguous_events: true
+  missing_quota_policy: report_and_generate_before_freeze_no_silent_truncation
+confidence_intervals:
+  primary_unit: system_id
+  stratify_by: C
+  bootstrap_replicates: 1000
+  resample_same_systems_for_both_tracks: true
+  paired_model_comparison: true
+  replay_in_primary_ci: false
+replay_auxiliary:
+  role: transplant_F
+  selection_weight: 0
+  resampling_for_population_ci: none_descriptive_only
+  record_both_parent_systems: true
+  duplicate_policy: retain_manifest_row_multiplicity
+mixed_family_auxiliary:
+  track: system_ood_only_separate_table
+  included_in_strict_four_family_primary: false

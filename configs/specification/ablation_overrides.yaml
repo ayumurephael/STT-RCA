@@ -1,0 +1,38 @@
+# Named overrides for a future runner. These files are not executable jobs.
+merge_rule: recursive_mapping_replace_lists_and_scalars
+arms:
+  stt: {}
+  delete_trans:
+    loss: {lambda_trans: 0.0}
+  root_only:
+    loss: {lambda_base: 0.0, lambda_trans: 0.0}
+    remove_unused_context_and_decoder: true
+  q_original_independent:
+    data: {pairing_mode: q_original_independent, base_pairing: independent_with_replacement, enforce_composition_train_cells: false}
+    training: {selection_metric: validation_system_macro_mrr}
+    claim_scope: system_holdout_only_no_strict_composition_claim
+  payload_supervised:
+    loss: {lambda_trans: 0.0}
+    control: {name: source_to_payload_and_mode, payload_weight: 0.1, mode_weight: 0.1}
+  masked_reconstruction:
+    loss: {lambda_trans: 0.0}
+    control: {name: ordinary_masked_reconstruction, patch_mask_ratio: 0.15, weight: 0.1, mask_after_normalization: true, fixed_zero_patch_features: true, preserve_real_query_validity: true}
+  kappa:
+    control:
+      name: admissible_source_target_derangement
+      strata: [T, recipient_dynamics, recipient_C, slot, donor_family, mode, payload_rms_bin]
+      preserve_root_batches: true
+      extra_current_encoder_forward: true
+      minimum_mismatch_coverage_for_full_claim: 0.8
+  kappa_compute_matched_identity:
+    control: {name: admissible_source_target_derangement, use_identity_mapping: true, extra_current_encoder_forward: true}
+  payload_oracle_diagnostic:
+    control: {name: payload_mode_replaces_source, response_requires_privileged_inputs: true, exported_root_ranker_is_observation_only: true, include_in_strong_auxiliary_comparison: true}
+  cross_matched_privileged:
+    control: {name: fixed_target_cross_within_suite, observation_pairing: strictly_different_system, shared_privileged_weight: 0.1, freeze_B_s_p_m: true, donor_C_T_r_matched: true, encoder_forwards: 4, decoder_forwards: 3}
+    matched_root_roles: {A_within: 1, A_cross: 1, B: 1, F: 3}
+    matched_root_weight_normalizer: 6
+  within_matched_privileged:
+    control: {name: fixed_target_cross_within_suite, observation_pairing: same_system, shared_privileged_weight: 0.1, freeze_B_s_p_m: true, donor_C_T_r_matched: true, encoder_forwards: 4, decoder_forwards: 3}
+    matched_root_roles: {A_within: 1, A_cross: 1, B: 1, F: 3}
+    matched_root_weight_normalizer: 6

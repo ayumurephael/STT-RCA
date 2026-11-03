@@ -1,0 +1,20 @@
+{
+  "files": {
+    "idea.detail.zh.md": "bcdefed4890cda5ec301e401db432d90acaed18cb7de108688a8443e6ba246c5",
+    "idea.std.zh.md": "0aed13403099a3ed9658c58b30993e8bb37453af53548149ee9cedfa82ee9b03",
+    "implementation-001/configs/stt_rca_base.yaml": "0357ef216f7282f95afb870dafaa1bb4aa7a17030b989c8eead6bc2f8e7ea899",
+    "implementation-001/refine-logs/FINAL_PROPOSAL.md": "6c0727f766d15fe2d226bb0a8c2370fbea105775b75d649d21a756edba1e6241"
+  },
+  "confirmed_data_override": {
+    "channels": [
+      8,
+      12,
+      16,
+      20,
+      32,
+      48
+    ],
+    "use_full_existing_corpus_and_main_pair_manifest": true
+  },
+  "training_authorized_this_delivery": false
+}

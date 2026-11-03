@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "stt-rca"
+version = "0.1.0"
+description = "Source-Token Transplantation for multivariate time-series single-root ranking"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+dependencies = ["torch>=2.5,<3", "numpy>=1.26,<3", "PyYAML>=6"]
+
+[project.optional-dependencies]
+data = ["stt-rca-data @ git+https://github.com/ayumurephael/mts-single-root-cause-synth_dataset-generator.git@27c858957fdaded36465d03591375b1781a9be82"]
+
+[project.scripts]
+stt-rca = "stt_rca.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+

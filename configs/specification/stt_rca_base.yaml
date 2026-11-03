@@ -1,0 +1,134 @@
+# Implementation specification, not a trained or benchmarked configuration.
+spec_version: stt-implementation-1.0
+task: confirmed_single_root_ranking
+model:
+  initialization: from_scratch
+  patch_size: 16
+  input_fields: [x, valid]
+  input_fields_scope: public_predict_api
+  patch_input: values_and_validity
+  backbone: axial_transformer
+  layers: 8
+  d_model: 512
+  heads: 8
+  d_ff: 2048
+  activation: gelu
+  normalization: pre_layernorm
+  norm_eps: 0.00001
+  position: fixed_sinusoidal_patch_index
+  channel_identity_embedding: false
+  causal_attention: false
+  dropout: 0.0
+  d_context: 256
+  d_source: 128
+  root_head_hidden: 64
+  root_pool: mean_valid_patches
+  root_output: masked_softmax
+  decoder:
+    layers: 4
+    d_model: 256
+    heads: 4
+    d_ff: 1024
+    dropout: 0.0
+    source_projection_bias: false
+    output_patch_width: 16
+normalization:
+  quantile_interpolation: linear
+  epsilon_scale: 0.0001
+  input_clipping: null
+  statistics: per_episode_per_channel_valid_observations
+  statistics_dtype: float64
+data:
+  channels: [8, 12, 16, 20]
+  channel_group_weights: [0.25, 0.25, 0.25, 0.25]
+  length_support: [1000, 10000]
+  length_sampling: balanced_channel_empirical_mixture
+  channel_given_length: bayes_conditional_of_balanced_channel_prior
+  exact_pair_length_match: true
+  crop_by_event_metadata: false
+  channel_permutation: true
+  original_root_mass: 0.5
+  replay_root_mass: 0.5
+  pairing_mode: q_admissible_composition
+  enforce_composition_train_cells: true
+  base_pairing: independent_with_replacement_then_condition_on_declared_cell
+  pair_manifest_size: 1920000
+  manifest_distribution: iid_draws_from_q_adm_with_multiplicity
+  optimization_distribution: fixed_manifest_empirical
+  length_bucket_resampling: false
+  response_cache: subtract_float64_replays_then_store_float32
+  replay_profile: frozen_clean_additive_port_v1
+  clean_scale_threshold: 3.0
+  anomaly_family_mapping: configs/anomaly_families.json
+  active_nonlinearity: false
+  stage0_pool: canonicalized_legacy_worlds
+  legacy_provenance_risk: requires_fresh_normal_first_confirmation
+  main_claim_requires_fresh_normal_first_pool: true
+  split_seed: 3407
+  system_split_percent: [80, 10, 10]
+  dynamics_bins: abs_ar_ge_0.4_and_mean_lag_ge_3
+  composition_train_mod4: [2, 3]
+  composition_validation_mod4: [1]
+  composition_test_mod4: [0]
+loss:
+  root_weights_per_triplet: [0.25, 0.25, 0.5]
+  lambda_base: 0.1
+  lambda_trans: 1.0
+  epsilon_energy_initial: 0.001
+  epsilon_energy_calibration: max_1e-6_or_0.01_times_median_positive_train_pair_energy
+  calibration_pairs: 4096
+  trans_reduction: mean_of_per_pair_mse_over_energy_plus_epsilon
+  base_reduction: mean_of_per_episode_valid_element_mse
+  calculation_dtype: float32
+  auxiliary_ramp_updates: 1000
+optimizer:
+  name: adamw
+  learning_rate: 0.0003
+  min_learning_rate: 0.00003
+  betas: [0.9, 0.95]
+  eps: 0.00000001
+  weight_decay: 0.01
+  no_decay: [bias, normalization]
+  grad_clip_norm: 1.0
+  warmup_updates: 2000
+  schedule: cosine_after_warmup
+training:
+  seed: 3407
+  confirm_seeds: [3407, 3408, 3409]
+  pilot_updates: 2000
+  max_updates: 20000
+  global_pairs_per_update: 96
+  world_size: 6
+  micro_pairs_per_rank_initial: 1
+  accumulation_steps_initial: 16
+  precision: bf16_trunk_fp32_projections_root_decoder_losses
+  decoder_forward_dtype: float32
+  source_context_projection_dtype: float32
+  root_pool_and_head_dtype: float32
+  fp32_internal_math: ieee_no_tf32
+  activation_checkpointing: true
+  checkpoint_use_reentrant: false
+  compile_initially: false
+  validate_every: 500
+  save_every: 1000
+  selection_metric: equal_weight_validation_system_and_composition_macro_mrr
+  early_stopping_primary_comparison: false
+  workers_per_rank_initial: 2
+  prefetch_factor: 2
+  pin_memory: true
+  persistent_workers: true
+  backend: nccl_on_linux
+  auto_launch: false
+  manifest_epochs: 1
+evaluation:
+  precision: full_float32_no_autocast_no_tf32
+  tie_comparison: exact_float32_logit_equality
+  top1_ties: expected_uniform_tie_break
+  mrr_ties: mean_reciprocal_ranks_over_tied_positions
+  cluster_bootstrap_replicates: 1000
+  cluster_bootstrap_unit: system
+  primary: independent_own_events_in_frozen_evaluation_manifest
+  protocol_file: configs/evaluation_protocol.yaml
+  report_visible_response_slice: true
+  report_offset_equivalence_slice: true
+  test_time_fitting: false

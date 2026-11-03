@@ -1,0 +1,30 @@
+test_frozen_model_architecture_and_explicit_six_group_override (test_config.ConfigurationTests) ... ok
+test_merge_replaces_lists_and_preserves_unmodified_mapping (test_config.ConfigurationTests) ... ok
+test_paired_bootstrap_same_models_zero_interval_and_seed_stability (test_metrics.MetricTests) ... ok
+test_system_macro_and_duplicate_rejection (test_metrics.MetricTests) ... ok
+test_all_six_channel_groups_and_long_nondivisible_length (test_model.ModelTests) ... ok
+test_bf16_trunk_keeps_registered_projections_and_root_fp32 (test_model.ModelTests) ... ok
+test_checkpointed_backward_matches_no_checkpoint (test_model.ModelTests) ... ok
+test_decoder_equivariance_zero_source_and_context_distinction (test_model.ModelTests) ... ok
+test_exact_full_parameter_count (test_model.ModelTests) ... ok
+test_export_drops_privileged_modules_and_preserves_logits (test_model.ModelTests) ... ok
+test_float64_linear_quantiles_masked_nan (test_model.ModelTests) ... ok
+test_fp32_decoder_inside_bf16_autocast_matches_values_and_gradients (test_model.ModelTests) ... ok
+test_objective_all_supported_arms_finite_backward (test_model.ModelTests) ... ok
+test_offset_information_boundary_same_normalized_inputs_same_logits (test_model.ModelTests) ... ok
+test_pair_mean_of_ratios_and_exact_ties (test_model.ModelTests) ... ok
+test_permutation_padding_batch_and_partial_patch (test_model.ModelTests) ... ok
+test_reconstruction_keeps_masked_queries (test_model.ModelTests) ... ok
+test_transplant_gradient_reaches_source_context_and_trunk (test_model.ModelTests) ... ok
+test_whitelist_and_unobserved_channel (test_model.ModelTests) ... ok
+test_accumulation_matches_global_mean_without_optimizer_update (test_training.TrainingTests) ... ok
+test_all_world_sizes_keep_exact_order_and_multiplicity (test_training.TrainingTests) ... ok
+test_checkpoint_exact_rng_cursor_and_hash_rejection (test_training.TrainingTests) ... ok
+test_energy_calibration_retains_zero_pairs_and_uses_only_train_row_ids (test_training.TrainingTests) ... ok
+test_lr_warmup_and_last_update (test_training.TrainingTests) ... ok
+test_two_rank_gloo_matches_single_rank_global_mean (test_training.TrainingTests) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 13.067s
+
+OK

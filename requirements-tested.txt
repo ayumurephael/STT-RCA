@@ -1,0 +1,6 @@
+# Actual CPU correctness checks: Python 3.10.12, Linux, CUDA hidden.
+# torch runtime reported 2.5.1+cu124; no GPU or training was used.
+torch==2.5.1
+numpy==2.2.6
+PyYAML==6.0.2
+
